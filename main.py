@@ -1,4 +1,6 @@
 from constants import *
+from player import *
+from circleshape import *
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "True"
 import pygame
@@ -13,6 +15,10 @@ def main():
             if event.type == pygame.QUIT:
                 return
         screen.fill("black")
+        x = SCREEN_WIDTH / 2
+        y = SCREEN_HEIGHT / 2
+        player = Player(x, y)
+        player.draw(screen)
         pygame.display.flip()
         dt = Clock.tick(60)/1000
 
