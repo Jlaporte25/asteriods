@@ -5,22 +5,28 @@ import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "True"
 import pygame
 
-Clock = pygame.time.Clock()
-dt = 0
+clock = pygame.time.Clock()
 
 def main():
+    running = True
+    
+    x = SCREEN_WIDTH / 2
+    y = SCREEN_HEIGHT / 2
+    player = Player(x, y)
+
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    while True:
+    while running:
+        dt = clock.tick(60)/1000
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return
+                running = False
+
+        player.update(dt)
+
         screen.fill("black")
-        x = SCREEN_WIDTH / 2
-        y = SCREEN_HEIGHT / 2
-        player = Player(x, y)
         player.draw(screen)
         pygame.display.flip()
-        dt = Clock.tick(60)/1000
 
 
 if __name__ == "__main__":
