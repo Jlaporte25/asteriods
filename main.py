@@ -1,8 +1,8 @@
 from constants import *
 from player import *
 from circleshape import *
-import os
-os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "True"
+from asteroidfield import *
+from asteroid import *
 import pygame
 
 clock = pygame.time.Clock()
@@ -12,7 +12,16 @@ def main():
     
     x = SCREEN_WIDTH / 2
     y = SCREEN_HEIGHT / 2
-    player = Player(x, y)
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
+    Player(x,y) 
+    
+    asteroids = pygame.sprite.Group()
+    Asteroid.containers = (asteroids, updatable, drawable)
+
+    AsteroidField.containers = (updatable)
+    AsteroidField()
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     while running:
@@ -22,10 +31,13 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
 
-        player.update(dt)
+        updatable.update(dt)
 
         screen.fill("black")
-        player.draw(screen)
+
+        for obj in drawable:
+            obj.draw(screen)
+
         pygame.display.flip()
 
 
