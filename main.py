@@ -3,7 +3,7 @@ from player import *
 from circleshape import *
 from asteroidfield import *
 from asteroid import *
-import pygame
+import pygame  # type: ignore
 
 clock = pygame.time.Clock()
 

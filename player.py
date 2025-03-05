@@ -1,4 +1,4 @@
-import pygame
+import pygame  # type: ignore
 
 from circleshape import CircleShape
 from constants import (
@@ -58,20 +58,20 @@ class Player(CircleShape):
         shot_direction = pygame.Vector2(0, 1).rotate(self.rotation)
         shot.velocity = shot_direction * PLAYER_SHOOT_SPEED
 
+
 class Shot(CircleShape):
     containers = None
+
     def __init__(self, position, radius):
         super().__init__(position.x, position.y, radius)
-        self.velocity = pygame.Vector2(0,0)
+        self.velocity = pygame.Vector2(0, 0)
 
         if Shot.containers:
             for container in Shot.containers:
                 container.add(self)
 
     def draw(self, screen):
-        pygame.draw.circle(
-            screen, (255, 255, 255), self.position, self.radius, width=2
-        )
+        pygame.draw.circle(screen, (255, 255, 255), self.position, self.radius, width=2)
 
     def update(self, dt):
         self.position = self.position + (self.velocity * dt)
